@@ -8,8 +8,45 @@
         <p class="desc medium-large">{{$t('ourWorkplace.describe')}}</p>
       </div>
 
-      <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane v-for="t in addressData" :key="t" :label="t.name" :name="t.name">
+      <div class="tit-name flex-row">
+        <div class="to-white-mit left"></div>
+        <span class="title-text">
+          {{addressData.NorthAmerica.name}}
+        </span>
+        <div class="to-white-mit right"></div>
+      </div>
+
+      <el-tabs v-model="NorthName" class="demo-tabs" @tab-click="handleClick">
+        <el-tab-pane v-for="t in addressData.NorthAmerica.city" :key="t" :label="t.name" :name="t.name">
+          <div class="abo flex-row" :style="{'background-image': `url(${t.img})`}">
+            <div class="content">
+              <div class="small-title describe">{{$t('ourWorkplace.city.office')}}</div>
+              <div :class="{'big-tit medium-text':true}">{{t.title}}</div>
+              <p class="address describe flex-row">
+                <i @click="system.$commonFun.goLink(`https://www.google.com/maps/search/?api=1&query=${t.address}`)"></i>
+                <span>{{t.address}}</span>
+              </p>
+              <p :class="{'desc describe flex-row underline':true}" @click="system.$commonFun.goLink(`https://www.google.com/maps/search/?api=1&query=${t.address}`)">
+                {{$t('ourWorkplace.city.get-directions')}}
+                <el-icon>
+                  <CaretRight />
+                </el-icon>
+              </p>
+            </div>
+          </div>
+        </el-tab-pane>
+      </el-tabs>
+
+      <div class="tit-name flex-row">
+        <div class="to-white-mit left"></div>
+        <span class="title-text">
+          {{addressData.Asia.name}}
+        </span>
+        <div class="to-white-mit right"></div>
+      </div>
+
+      <el-tabs v-model="AsiaName" class="demo-tabs" @tab-click="handleClick">
+        <el-tab-pane v-for="t in addressData.Asia.city" :key="t" :label="t.name" :name="t.name">
           <div class="abo flex-row" :style="{'background-image': `url(${t.img})`}">
             <div class="content">
               <div class="small-title describe">{{$t('ourWorkplace.city.office')}}</div>
@@ -51,37 +88,46 @@ export default defineComponent({
     const system = getCurrentInstance().appContext.config.globalProperties
     const route = useRoute()
     const router = useRouter()
-    const addressData = ref([
-      {
-        img: require(`@/assets/images/workplace/Montreal.jpg`),
-        link: 'https://www.nebulablock.com/',
-        name: 'Montreal',
-        title: t('ourWorkplace.city.montreal-name'),
-        address: t('ourWorkplace.city.montreal-city')
+    const addressData = reactive({
+      NorthAmerica: {
+        name: 'North America',
+        city: [
+          {
+            img: require(`@/assets/images/workplace/Toronto.jpg`),
+            link: 'https://swanchain.io/',
+            name: 'Toronto',
+            title: t('ourWorkplace.city.toronto-name'),
+            address: t('ourWorkplace.city.toronto-city')
+          },
+          {
+            img: require(`@/assets/images/workplace/Montreal.jpg`),
+            link: 'https://www.nebulablock.com/',
+            name: 'Montreal',
+            title: t('ourWorkplace.city.montreal-name'),
+            address: t('ourWorkplace.city.montreal-city')
+          }]
       },
-      {
-        img: require(`@/assets/images/workplace/Toronto.jpg`),
-        link: 'https://swanchain.io/',
-        name: 'Toronto',
-        title: t('ourWorkplace.city.toronto-name'),
-        address: t('ourWorkplace.city.toronto-city')
-      },
-      {
-        img: require(`@/assets/images/workplace/Shanghai.jpg`),
-        link: 'https://en.fogmeta.com/',
-        name: 'Shanghai',
-        title: t('ourWorkplace.city.shanghai-name'),
-        address: t('ourWorkplace.city.shanghai-city')
-      },
-      {
-        img: require(`@/assets/images/workplace/Ho-Chi-Minh.jpg`),
-        link: '',
-        name: 'Ho Chi Minh',
-        title: t('ourWorkplace.city.hochiminh-name'),
-        address: t('ourWorkplace.city.hochiminh-city')
+      Asia: {
+        name: 'Asia',
+        city: [
+          {
+            img: require(`@/assets/images/workplace/Shanghai.jpg`),
+            link: 'https://en.fogmeta.com/',
+            name: 'Shanghai',
+            title: t('ourWorkplace.city.shanghai-name'),
+            address: t('ourWorkplace.city.shanghai-city')
+          },
+          {
+            img: require(`@/assets/images/workplace/Ho-Chi-Minh.jpg`),
+            link: '',
+            name: 'Ho Chi Minh',
+            title: t('ourWorkplace.city.hochiminh-name'),
+            address: t('ourWorkplace.city.hochiminh-city')
+          }]
       }
-    ])
-    const activeName = ref('Montreal')
+    })
+    const NorthName = ref('Toronto')
+    const AsiaName = ref('Shanghai')
 
     const handleClick = (tab, event) => { }
     onMounted(() => { })
@@ -89,7 +135,8 @@ export default defineComponent({
       system,
       bodyWidth,
       addressData,
-      activeName,
+      NorthName,
+      AsiaName,
       handleClick
     }
   }
@@ -143,6 +190,38 @@ export default defineComponent({
       .desc {
         font-weight: 400;
         line-height: 1.23;
+      }
+    }
+    .tit-name {
+      justify-content: center;
+      font-weight: 600;
+      color: #000;
+      gap: 0.08rem;
+      padding: 0 0 80px;
+      @media screen and (min-width: 2160px) {
+        padding: 0 0 40px;
+      }
+      @media screen and (max-width: 767px) {
+        padding: 0 0 160px;
+      }
+      .to-white-mit {
+        height: 1px;
+        flex: 1 1 0%;
+        @media screen and (min-width: 2160px) {
+          height: 2px;
+        }
+        @media screen and (max-width: 767px) {
+          height: 2px;
+        }
+        &.left {
+          background-image: linear-gradient(to left, #d8d8d8, #fff);
+        }
+        &.right {
+          background-image: linear-gradient(to right, #d8d8d8, #fff);
+        }
+      }
+      span {
+        padding: 0 0.05rem;
       }
     }
     .el-tabs {
@@ -240,9 +319,9 @@ export default defineComponent({
         }
       }
       .el-tabs__content {
-        padding: 60px 0;
+        padding: 60px 0 100px;
         @media screen and (min-width: 2160px) {
-          padding: 30px 0;
+          padding: 30px 0 50px;
         }
         .el-tab-pane {
           .image {
@@ -260,6 +339,9 @@ export default defineComponent({
             background-size: cover;
             @media screen and (min-width: 2160px) {
               padding: 20px 28px;
+            }
+            @media screen and (max-width: 600px) {
+              padding: 80px 100px;
             }
           }
           .content {
@@ -297,7 +379,7 @@ export default defineComponent({
             .address {
               flex-wrap: nowrap;
               align-items: flex-start;
-              max-width: 240px;
+              max-width: 280px;
               padding: 0;
               line-height: 1.3;
               @media screen and (max-width: 768px) {

@@ -211,13 +211,13 @@ export default {
       "office": "Nebula AI Office",
       "get-directions": "Get directions",
       "montreal-name": "Montreal",
-      "montreal-city": "5311 Blvd. De Maisonneuve Ouest, Montreal, QC H4A 1Z5.",
+      "montreal-city": "5311 Blvd. De Maisonneuve Ouest, Montreal, QC H4A 1Z5, Canada.",
       "toronto-name": "Toronto",
-      "toronto-city": "205 Placer Ct, North York, ON M2H 0A9 unit 300.",
+      "toronto-city": "205 Placer Ct, North York, ON M2H 0A9 unit 300, Canada.",
       "shanghai-name": "Shanghai",
-      "shanghai-city": "No.200, East Guoding Road, Yangpu District, Shanghai.",
+      "shanghai-city": "No.200, East Guoding Road, Yangpu District, Shanghai, China.",
       "hochiminh-name": "Ho Chi Minh",
-      "hochiminh-city": "Building: H3, 384 Hoang Dieu Street, Ward 6, District 4, Ho Chi Minh City.",
+      "hochiminh-city": "Building: H3, 384 Hoang Dieu Street, Ward 6, District 4, Ho Chi Minh City, Vietnam.",
     }
   },
   "contactUs": {
