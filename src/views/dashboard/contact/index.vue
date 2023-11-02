@@ -6,58 +6,9 @@
       <div class="title">
         <p class="title-text">{{$t('contactUs.title')}}</p>
       </div>
-      <el-form ref="contactRef" v-loading="addLoad" class="flex-row" :model="contactForm" label-position="top" :rules="rulesData" status-icon>
-        <el-form-item prop="first_name" class="item-half">
-          <div class="flex-row describe">
-            <el-input v-model="contactForm.first_name" :placeholder="$t('contactUs.First-Name')" pattern="^[a-zA-Z0-9]{1,12}$" />
-          </div>
-        </el-form-item>
-        <el-form-item prop="last_name" class="item-half">
-          <div class="flex-row describe">
-            <el-input v-model="contactForm.last_name" :placeholder="$t('contactUs.Last-Name')" pattern="^[a-zA-Z0-9]{1,12}$" />
-          </div>
-        </el-form-item>
-        <el-form-item prop="email" class="item-half">
-          <div class="flex-row describe">
-            <el-input v-model="contactForm.email" :placeholder="$t('contactUs.Email')" />
-          </div>
-        </el-form-item>
-        <el-form-item prop="phone" class="item-half">
-          <div class="flex-row describe">
-            <el-input v-model="contactForm.phone" :placeholder="$t('contactUs.Phone-Number')" onkeyup="value=value.replace(/[^\d]/g,'')" minlength="10" />
-          </div>
-        </el-form-item>
-        <el-form-item prop="company_name" class="item-half">
-          <div class="flex-row describe">
-            <el-input v-model="contactForm.company_name" :placeholder="$t('contactUs.Company-Name')" />
-          </div>
-        </el-form-item>
-        <el-form-item prop="job" class="item-half">
-          <div class="flex-row describe">
-            <el-input v-model="contactForm.job" :placeholder="$t('contactUs.Job-Role')" />
-          </div>
-        </el-form-item>
-        <el-form-item prop="subject" class="item-half">
-          <div class="flex-row describe">
-            <el-input v-model="contactForm.subject" :placeholder="$t('contactUs.Subject')" />
-          </div>
-        </el-form-item>
-        <el-form-item prop="requst" class="item-half">
-          <div class="flex-row describe">
-            <el-checkbox v-model="contactForm.requst" :label="$t('contactUs.Request')" size="large" />
-          </div>
-        </el-form-item>
-        <el-form-item prop="help">
-          <div class="flex-row describe">
-            <el-input v-model="contactForm.help" :rows="4" type="textarea" :placeholder="$t('contactUs.help')" class="textarea" />
-          </div>
-        </el-form-item>
-        <el-form-item>
-          <div class="submit-more describe" @click="submitAdd('contactRef')">
-            {{$t('contactUs.Submit')}}
-          </div>
-        </el-form-item>
-      </el-form>
+      <div class="faq">
+        <email-embed></email-embed>
+      </div>
     </div>
 
     <div class="contact-style lang-max">
@@ -105,12 +56,13 @@ import { defineComponent, computed, onMounted, watch, ref, reactive, getCurrentI
 import { useStore } from "vuex"
 import { useRouter, useRoute } from 'vue-router'
 import CarouselContainer from '@/components/CarouselContainer.vue'
+import EmailEmbed from "@/components/EmailEmbed.vue"
 import {
   Right
 } from '@element-plus/icons-vue'
 export default defineComponent({
   components: {
-    Right, CarouselContainer
+    Right, CarouselContainer, EmailEmbed
   },
   setup () {
     const store = useStore()
@@ -150,78 +102,13 @@ export default defineComponent({
         text: 'Huaxun Building, Software Park Phase I, Huli, Xiamen, Fujian, China'
       }
     ])
-    const addLoad = ref(false)
-    const contactRef = ref(null)
-    const contactForm = reactive({
-      first_name: '',
-      last_name: '',
-      email: '',
-      phone: '',
-      company_name: '',
-      job: '',
-      subject: '',
-      help: '',
-      requst: false
-    })
-    const rulesData = reactive({
-      first_name: [
-        { required: true, message: 'Please enter your first name', trigger: 'blur' }
-      ],
-      last_name: [
-        { required: true, message: 'Please enter your last name', trigger: 'blur' }
-      ],
-      email: [
-        { required: true, message: 'Please enter your email address', trigger: 'blur' },
-        {
-          type: 'email',
-          message: 'Please input correct email address',
-          trigger: ['blur', 'change'],
-        }
-      ],
-      subject: [
-        { required: true, message: 'Please enter your subject', trigger: 'blur' }
-      ],
-      help: [
-        { required: true, message: 'Please enter your message', trigger: 'blur' }
-      ]
-    })
 
-    async function submitAdd (formEl) {
-      if (!formEl) return
-      await contactRef.value.validate(async (valid, fields) => {
-        if (valid) {
-          addLoad.value = true
-          const params = {
-            comment: contactForm.help,
-            company_name: contactForm.company_name,
-            email: contactForm.email,
-            first_name: contactForm.first_name,
-            last_name: contactForm.last_name,
-            source: "nebula-ai.com",
-            subject: contactForm.subject,
-            title: contactForm.job
-          }
-          if (contactForm.requst) params.inquiry = ""
-          const addRes = await system.$commonFun.sendRequest(`${process.env.VUE_APP_BASEAPI}orionrest/customers/contactInfo`, 'post', params)
-          // if (addRes.message) system.$commonFun.messageTip('error', addRes.message)
-          addLoad.value = false
-        } else {
-          console.log('error submit!', fields)
-          return false
-        }
-      })
-    }
     onMounted(() => { })
     return {
       system,
       bodyWidth,
       partnersData,
-      addLoad,
-      productData,
-      contactRef,
-      contactForm,
-      rulesData,
-      submitAdd
+      productData
     }
   }
 })
@@ -437,6 +324,9 @@ export default defineComponent({
         > .el-form-item__label:before {
         display: none;
       }
+    }
+    .faq {
+      margin: auto;
     }
   }
   :deep(.contact-style) {
