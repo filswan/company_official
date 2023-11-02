@@ -103,7 +103,7 @@ export default defineComponent({
       else if (key === '3-3') router.push({ name: 'nebulablock' })
       else if (key === '4-1') router.push({ name: 'partners' })
       else if (key === '4-2') system.$commonFun.goLink('https://nebulaai.org/')
-      else if (key === '5') router.push({ name: 'contact' })
+      else if (key === '5') system.$commonFun.goLink('https://us17.list-manage.com/contact-form?u=d00f980f8a4f0c1054e178765&form_id=37f9894eaae77c108c70bd00e30b9841')
     }
     // what-we-do
     async function activeMenu (row) {
