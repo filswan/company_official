@@ -37,7 +37,7 @@
         </el-tab-pane>
       </el-tabs>
 
-      <div class="tit-name flex-row">
+      <!-- <div class="tit-name flex-row">
         <div class="to-white-mit left"></div>
         <span class="title-text">
           {{addressData.Asia.name}}
@@ -64,7 +64,7 @@
             </div>
           </div>
         </el-tab-pane>
-      </el-tabs>
+      </el-tabs> -->
     </div>
   </section>
 </template>

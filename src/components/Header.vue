@@ -14,9 +14,9 @@
             <el-menu-item index="3-1">
               <span class="mit">{{$t('menu.Decentralized-Computing')}}</span>
             </el-menu-item>
-            <el-menu-item index="3-2">
+            <!-- <el-menu-item index="3-2">
               <span class="mit">{{$t('menu.Web3-OS')}}</span>
-            </el-menu-item>
+            </el-menu-item> -->
             <el-menu-item index="3-3">
               <span class="mit">{{$t('menu.Data-Center-Solutions')}}</span>
             </el-menu-item>
